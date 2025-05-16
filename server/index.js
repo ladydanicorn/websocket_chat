@@ -20,11 +20,20 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', (room) => {
     socket.join(room);
     console.log(`${socket.id} joined room ${room}`);
+    
   });
 
   socket.on('sendMessage', ({ room, username, message }) => {
     const timestamp = new Date().toLocaleString();
     io.to(room).emit('receiveMessage', { username, message, timestamp });
+  });
+
+  socket.on('editMessage', ({ room, messageIdx, newMessage }) => {
+    io.to(room).emit('messageEdited', { messageIdx, newMessage });
+  });
+
+  socket.on('deleteMessage', ({ room, messageIdx }) => {
+    io.to(room).emit('messageDeleted', { messageIdx });
   });
 
   socket.on('disconnect', () => {
