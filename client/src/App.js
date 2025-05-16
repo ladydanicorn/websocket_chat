@@ -11,15 +11,12 @@ function App() {
   const [username, setUsername] = useState('');
   const [messages, setMessages] = useState([]);
   
-  // New state for message filtering
   const [filterUsername, setFilterUsername] = useState('');
   const [filteredMessages, setFilteredMessages] = useState([]);
   
-  // New state for message editing (optional)
   const [editingId, setEditingId] = useState(null);
   const [editMessage, setEditMessage] = useState('');
 
-  // Filter messages when messages or filterUsername changes
   useEffect(() => {
     if (filterUsername) {
       setFilteredMessages(messages.filter(msg => 
@@ -34,13 +31,11 @@ function App() {
     socket.on('receiveMessage', (data) => {
       setMessages((prev) => {
         const updatedMessages = [...prev, data];
-        // Save messages with room-specific key
         localStorage.setItem(`chatRoom_${room}`, JSON.stringify(updatedMessages));
         return updatedMessages;
       });
     });
 
-    // Optional: Add these handlers for message editing and deletion
     socket.on('messageEdited', ({ messageIdx, newMessage }) => {
       setMessages(prev => {
         const updatedMessages = [...prev];
@@ -73,7 +68,6 @@ function App() {
       socket.emit('joinRoom', room);
       setJoined(true);
       
-      // Load existing messages for this room
       const savedMessages = localStorage.getItem(`chatRoom_${room}`);
       if (savedMessages) {
         setMessages(JSON.parse(savedMessages));
@@ -88,7 +82,6 @@ function App() {
     }
   };
 
-  // Optional: Functions for message editing and deletion
   const startEditing = (idx, text) => {
     setEditingId(idx);
     setEditMessage(text);
@@ -102,7 +95,6 @@ function App() {
     setMessages(updatedMessages);
     localStorage.setItem(`chatRoom_${room}`, JSON.stringify(updatedMessages));
     
-    // Notify others of the edit
     socket.emit('editMessage', { room, messageIdx: idx, newMessage: editMessage });
     
     setEditingId(null);
@@ -115,7 +107,6 @@ function App() {
     setMessages(updatedMessages);
     localStorage.setItem(`chatRoom_${room}`, JSON.stringify(updatedMessages));
     
-    // Notify others of the deletion
     socket.emit('deleteMessage', { room, messageIdx: idx });
   };
 

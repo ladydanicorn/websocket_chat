@@ -1,70 +1,106 @@
-# Getting Started with Create React App
+WebSocket Chat Application
+A real-time chat application built with React, Node.js, Express, and Socket.IO.
+Features
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Real-time messaging using WebSocket technology (Socket.IO)
+Chat rooms for organized conversations
+Message persistence using localStorage to maintain chat history
+Username filtering to view messages from specific users
+Message editing and deletion with real-time updates for all users
+Timestamps for each message
+Visual indicators for your messages vs. others' messages
+Responsive design for both desktop and mobile
 
-## Available Scripts
+Tech Stack
 
-In the project directory, you can run:
+Frontend: React.js
+Backend: Node.js, Express
+WebSockets: Socket.IO
+Data Storage: Browser localStorage
+Styling: CSS
 
-### `npm start`
+Project Structure
+websocket-chat/
+│
+├── client/                 # React frontend
+│   ├── public/             # Static files
+│   ├── src/
+│   │   ├── App.js          # Main application component
+│   │   ├── App.css         # Application styles
+│   │   ├── index.js        # React entry point
+│   │   └── ...             # Other React files
+│   └── package.json        # Frontend dependencies
+│
+└── server/                 # Node.js backend
+    ├── index.js            # Express server & Socket.IO setup
+    └── package.json        # Backend dependencies
+Installation
+Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Node.js (>= 14.x)
+npm (>= 6.x)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Setup Instructions
 
-### `npm test`
+Clone the repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+git clone https://github.com/yourusername/websocket-chat.git
+cd websocket-chat
 
-### `npm run build`
+Install and start the server
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+cd server
+npm install
+node index.js
+The server will run on http://localhost:3001.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Install and start the client
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+In a new terminal window:
+cd client
+npm install
+npm start
+The React app will start on http://localhost:3000.
+Usage
 
-### `npm run eject`
+Open http://localhost:3000 in your browser
+Enter a username and room name
+Click "Join" to enter the chat room
+Type messages in the input field and click "Send" or press Enter
+Use the filter input to see only messages from specific users
+Hover over your own messages to edit or delete them
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+WebSocket Events
+The application uses the following Socket.IO events:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+connection: Triggered when a user connects to the WebSocket server
+joinRoom: Emitted when a user joins a chat room
+sendMessage: Emitted when a user sends a message
+receiveMessage: Received when there's a new message in the room
+editMessage: Emitted when a user edits their message
+messageEdited: Received when a message has been edited
+deleteMessage: Emitted when a user deletes their message
+messageDeleted: Received when a message has been deleted
+disconnect: Triggered when a user disconnects from the server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+LocalStorage
+The application uses browser localStorage to persist chat messages. Each room's messages are stored with a unique key in the format chatRoom_${roomName}. This allows users to see previous messages when rejoining a room, even after closing the browser.
+Future Enhancements
+Potential improvements for future development:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+User authentication
+Server-side message persistence with a database
+File and image sharing
+Typing indicators
+Read receipts
+User presence indicators (online/offline)
+Message reactions/emojis
+Private messaging
+Push notifications
 
-## Learn More
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+Acknowledgments
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project was created as part of a web development course.
+WebSockets implementation powered by Socket.IO.
